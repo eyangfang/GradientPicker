@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:GradientPicker.UI.Views"
              StartupUri="UI/Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <!--<ResourceDictionary Source="/GradientPicker;component/Resources/ImageResources.xaml"/>-->
     </Application.Resources>
 </Application>

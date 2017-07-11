@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:GradientPicker.UI.UserControl">
 
-
+    
     <!-- Gradient Stop Thumb Style -->
     <Style x:Key="SliderThumbStyle" TargetType="Thumb">
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -78,7 +78,9 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="0" FontSize="20" HorizontalAlignment="Center">COLORS</TextBlock>
-                                    <Button x:Name="RearrangeIcon" Grid.Column="1" Content="Rearrange" Command="{x:Static local:GradientPickerControl.RearrangeGradientStop}"></Button>
+                                    <Button x:Name="RearrangeIcon" Grid.Column="1" Command="{x:Static local:GradientPickerControl.RearrangeGradientStop}">
+                                        <Image Source="Resources/Image/distribute.png" Stretch="Uniform"/>
+                                    </Button>
                                            
                                 </Grid>
 
@@ -224,7 +226,8 @@
                 <ControlTemplate TargetType="{x:Type local:Swatches}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Cursor="/GradientPicker;component/Resources/Image/eyedropper.cur">
 
                         <StackPanel>
                             <Grid>
@@ -245,6 +248,15 @@
                                             <Button Width="20" Height="20" Background="{Binding}"/>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
+
+                                    <!--<Style TargetType="{x:Type ListBoxItem}" >
+                                        <Setter Property="ContentTemplate" Value="{StaticResource ItemTemplate}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource SelectedTemplate}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>-->
 
                                 </ListBox>
                             </Grid>

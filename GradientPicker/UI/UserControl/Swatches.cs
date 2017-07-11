@@ -54,8 +54,6 @@ namespace GradientPicker.UI.UserControl
             ls.Add(Color.FromRgb(255, 0, 255));
             ls.Add(Color.FromRgb(186, 85, 211));
             ls.Add(Color.FromRgb(123, 104, 238));
-            ls.Add(Color.FromRgb(186, 85, 211));
-            ls.Add(Color.FromRgb(123, 104, 238));
 
             
             for (int i = 0; i < ls.Count; i++)
@@ -64,7 +62,7 @@ namespace GradientPicker.UI.UserControl
                 b.Color = ls[i];
                 lsBrush.Add(b);
             }
-
+            
         }
         
         public List<Color> ls
@@ -73,6 +71,13 @@ namespace GradientPicker.UI.UserControl
             set { SetValue(lsProperty,value); }
         }
         public static readonly DependencyProperty lsProperty = DependencyProperty.Register("ls", typeof(List<Color>), typeof(Swatches));
+
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseLeftButtonDown(e);
+
+            Button btn = e.Source as Button;
+        }
 
 
     }
