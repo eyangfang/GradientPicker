@@ -245,7 +245,7 @@
                                     </ListBox.ItemsPanel>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <Button Width="20" Height="20" Background="{Binding}"/>
+                                            <Button Width="20" Height="20" Background="{Binding}" Command="{Binding BrushSelected}"/>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
 

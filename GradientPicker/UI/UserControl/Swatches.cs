@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -30,10 +31,12 @@ namespace GradientPicker.UI.UserControl
             set { _lsBrush = value; }
         }
 
+        public RelayCommand<SolidColorBrush> BrushSelected { get; private set; }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             InitialColor();
+            BrushSelected = new RelayCommand<SolidColorBrush>(obj=> { CurrentSelected = obj; });
         }
 
         void InitialColor()
@@ -72,12 +75,15 @@ namespace GradientPicker.UI.UserControl
         }
         public static readonly DependencyProperty lsProperty = DependencyProperty.Register("ls", typeof(List<Color>), typeof(Swatches));
 
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        public SolidColorBrush CurrentSelected
         {
-            base.OnPreviewMouseLeftButtonDown(e);
-
-            Button btn = e.Source as Button;
+            get { return (SolidColorBrush)GetValue(CurrentSelectedProperty); }
+            set { SetValue(CurrentSelectedProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for CurrentSelected.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentSelectedProperty =
+            DependencyProperty.Register("CurrentSelected", typeof(SolidColorBrush), typeof(Swatches), new UIPropertyMetadata(default(SolidColorBrush)));
 
 
     }
