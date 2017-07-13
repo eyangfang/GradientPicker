@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -28,17 +25,6 @@ namespace GradientPicker.UI.UserControl
                 this.gradientPicker.SetBrush();
             }
         }
-
-        //Color GetColorFromImage(Point p)
-        //{
-        //    try
-        //    {
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return
-        //    }
-        //}
 
         public GradientPickerControl gradientPicker
         {

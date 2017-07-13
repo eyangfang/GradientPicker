@@ -1,0 +1,106 @@
+﻿<Window x:Class="GradientPicker.UI.UserControl.ColorPickerDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:GradientPicker.UI.UserControl"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="false"
+        WindowStyle="None"
+        FontFamily="Segoe UI Light"
+        Background="Black"
+        Foreground="White"
+        Title="ColorPickerDialog" Height="420" Width="500">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/GradientPicker;component/Resources/Skin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Uid="Style_62" x:Key="MainWindowCloseButtonStyle" TargetType="{x:Type Button}" BasedOn="{x:Null}">
+                <Setter x:Uid="Setter_604" Property="FocusVisualStyle" Value="{DynamicResource SimpleButtonFocusVisual}"/>
+                <Setter x:Uid="Setter_605" Property="Background" Value="{DynamicResource NormalBrush}"/>
+                <Setter x:Uid="Setter_606" Property="BorderBrush" Value="{DynamicResource NormalBorderBrush}"/>
+                <Setter x:Uid="Setter_607" Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate x:Uid="ControlTemplate_47" TargetType="{x:Type Button}">
+                            <Image x:Uid="Image_50" Width="Auto" Height="Auto" Source="{DynamicResource ImageButtonBtnCloseNormal}" x:Name="Image"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger x:Uid="Trigger_165" Property="IsMouseOver" Value="true">
+                                    <Setter x:Uid="Setter_608" Property="Source" TargetName="Image" Value="{DynamicResource ImageButtonBtnCloseOver}"/>
+                                </Trigger>
+                                <Trigger x:Uid="Trigger_166" Property="IsEnabled" Value="False">
+                                    <Setter x:Uid="Setter_609" Property="Source" TargetName="Image" Value="{DynamicResource ImageButtonBtnCloseDisable}"/>
+                                </Trigger>
+                                <Trigger x:Uid="Trigger_167" Property="IsPressed" Value="True">
+                                    <Setter x:Uid="Setter_610" Property="Source" TargetName="Image" Value="{DynamicResource ImageButtonBtnCloseDown}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter x:Uid="Setter_326" Property="SnapsToDevicePixels" Value="True"/>
+
+                <Setter x:Uid="Setter_611" Property="ToolTip" Value="Close"/>
+            </Style>
+        </ResourceDictionary>    
+    </Window.Resources>
+    
+    <Grid x:Uid="gridMain" x:Name="gridMain" Background="{DynamicResource DialogBorderBkgndBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Uid="ColumnDefinition_1" Width="6"/>
+            <ColumnDefinition x:Uid="ColumnDefinition_2" Width="*"/>
+            <ColumnDefinition x:Uid="ColumnDefinition_3" Width="6"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Uid="RowDefinition_1" Height="30"/>
+            <RowDefinition x:Uid="RowDefinition_2" Height="*"/>
+            <RowDefinition x:Uid="RowDefinition_3" Height="6"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="grdTitle" Grid.Column="1" MouseLeftButtonDown="gridTitle_MouseLeftButtonDown">
+            <Label Content="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}" Foreground="White" />
+            <Button HorizontalAlignment="Right" x:Name="btnClose" Style="{DynamicResource MainWindowCloseButtonStyle}" Grid.Column="1" IsCancel="True"/>
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="1" Background="{DynamicResource DialogMainBkgndBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <local:ColorPicker 
+                    Grid.Row="1"
+                    x:Name="cPicker"
+                    SelectedColorChanged="onSelectedColorChanged" 
+                    Margin="10,0,10,0"/>
+
+            <StackPanel
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                Margin="5" >
+
+                <Button
+                    Content="OK"
+                    Name="OKButton"
+                    Click="okButtonClicked"
+                    IsEnabled="True"
+                    Width="60"
+                    Height="25"
+                    Margin="10,0,0,0"
+                    TabIndex="0"/>
+
+                <Button
+                    x:Name="btnCancel"
+                    Content="Cancel"
+                    Click="cancelButtonClicked"
+                    IsCancel="True"
+                    Height="25"
+                    Width="60"
+                    Margin="10,0,10,0"
+                    TabIndex="1"/>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

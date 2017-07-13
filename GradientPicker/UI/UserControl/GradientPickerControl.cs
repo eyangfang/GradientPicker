@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GradientPicker.UI.UserControl
 {
     public class GradientPickerControl : Control
     {
-
         internal bool _BrushSetInternally = false;
         internal bool _UpdateBrush = true;
 
@@ -31,6 +22,7 @@ namespace GradientPicker.UI.UserControl
         public static RoutedCommand RemoveGradientStop = new RoutedCommand();
         public static RoutedCommand RearrangeGradientStop = new RoutedCommand();
         public static RoutedCommand AddGradientStop = new RoutedCommand();
+        public static RoutedCommand OpenDialog = new RoutedCommand();
 
         public void InitialBrush()
         {
@@ -44,7 +36,7 @@ namespace GradientPicker.UI.UserControl
             SetBrush();
         }
 
-
+        protected ListBox ActivitiesItemList { get; private set; }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -52,6 +44,15 @@ namespace GradientPicker.UI.UserControl
             this.CommandBindings.Add(new CommandBinding(GradientPickerControl.RemoveGradientStop, RemoveGradientStop_Executed));
             this.CommandBindings.Add(new CommandBinding(GradientPickerControl.RearrangeGradientStop, RearrangeGradientStop_Executed));
             this.CommandBindings.Add(new CommandBinding(GradientPickerControl.AddGradientStop, AddGradientStop_Executed));
+            this.CommandBindings.Add(new CommandBinding(GradientPickerControl.OpenDialog, Show_colorpicker));
+
+            ActivitiesItemList = GetTemplateChild("PART_StopsList") as ListBox;
+            if (ActivitiesItemList != null)
+             {
+                 ActivitiesItemList.AddHandler(
+                 Control.MouseDoubleClickEvent,
+                 new RoutedEventHandler(Show_colorpicker));
+             }
         }
 
         private void RemoveGradientStop_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -97,27 +98,31 @@ namespace GradientPicker.UI.UserControl
             this.SetBrush();
         }
 
-        public IEnumerable<Enum> SpreadMethodTypes
+        bool? dialogResult;
+        private void Show_colorpicker(object sender, RoutedEventArgs e)
         {
-            get
+            ColorPickerDialog cPicker = new ColorPickerDialog();
+            cPicker.StartingColor = this.Color;
+            cPicker.Owner = Application.Current.MainWindow;
+            byte A = 0;
+            byte R = 0;
+            byte G = 0;
+            byte B = 0;
+            dialogResult = cPicker.ShowDialog();
+            if (dialogResult != null && (bool)dialogResult == true)
             {
-                GradientSpreadMethod temp = GradientSpreadMethod.Pad | GradientSpreadMethod.Reflect | GradientSpreadMethod.Repeat;
-                foreach (Enum value in Enum.GetValues(temp.GetType()))
-                    if (temp.HasFlag(value))
-                        yield return value;
-            }
-        }
 
-        public IEnumerable<Enum> MappingModeTypes
-        {
-            get
-            {
-                BrushMappingMode temp = BrushMappingMode.Absolute | BrushMappingMode.RelativeToBoundingBox;
-                foreach (Enum value in Enum.GetValues(temp.GetType()))
-                    if (temp.HasFlag(value))
-                        yield return value;
+                A = cPicker.SelectedColorA;
+                R = cPicker.SelectedColorR;
+                G = cPicker.SelectedColorG;
+                B = cPicker.SelectedColorB;
+                //rtlfill.Fill = new SolidColorBrush(cPicker.SelectedColor);
+                this.Color = (Color)ColorConverter.ConvertFromString(cPicker.SelectedColor.ToString());
+                this.SelectedGradient.Color = this.Color;
+                this.SetBrush();
             }
         }
+        
 
         #region Private Properties
 
@@ -193,116 +198,6 @@ namespace GradientPicker.UI.UserControl
             }
         }
 
-
-
-        double GradientOriginX
-        {
-            get { return (double)GetValue(GradientOriginXProperty); }
-            set { SetValue(GradientOriginXProperty, value); }
-        }
-        static readonly DependencyProperty GradientOriginXProperty =
-            DependencyProperty.Register("GradientOriginX", typeof(double), typeof(GradientPickerControl), new PropertyMetadata(0.5, new PropertyChangedCallback(GradientOriginXChanged)));
-        static void GradientOriginXChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is RadialGradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as RadialGradientBrush).GradientOrigin = new Point((double)args.NewValue, (cp.Brush as RadialGradientBrush).GradientOrigin.Y);
-                cp._BrushSetInternally = false;
-            }
-        }
-
-        double GradientOriginY
-        {
-            get { return (double)GetValue(GradientOriginYProperty); }
-            set { SetValue(GradientOriginYProperty, value); }
-        }
-        static readonly DependencyProperty GradientOriginYProperty =
-            DependencyProperty.Register("GradientOriginY", typeof(double), typeof(GradientPickerControl), new PropertyMetadata(0.5, new PropertyChangedCallback(GradientOriginYChanged)));
-        static void GradientOriginYChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is RadialGradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as RadialGradientBrush).GradientOrigin = new Point((cp.Brush as RadialGradientBrush).GradientOrigin.X, (double)args.NewValue);
-                cp._BrushSetInternally = false;
-            }
-        }
-
-        double CenterX
-        {
-            get { return (double)GetValue(CenterXProperty); }
-            set { SetValue(CenterXProperty, value); }
-        }
-        static readonly DependencyProperty CenterXProperty =
-            DependencyProperty.Register("CenterX", typeof(double), typeof(GradientPickerControl), new PropertyMetadata(0.5, new PropertyChangedCallback(CenterXChanged)));
-        static void CenterXChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is RadialGradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as RadialGradientBrush).Center = new Point((double)args.NewValue, (cp.Brush as RadialGradientBrush).Center.Y);
-                cp._BrushSetInternally = false;
-            }
-        }
-
-        double CenterY
-        {
-            get { return (double)GetValue(CenterYProperty); }
-            set { SetValue(CenterYProperty, value); }
-        }
-        static readonly DependencyProperty CenterYProperty =
-            DependencyProperty.Register("CenterY", typeof(double), typeof(GradientPickerControl), new PropertyMetadata(0.5, new PropertyChangedCallback(CenterYChanged)));
-        static void CenterYChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is RadialGradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as RadialGradientBrush).Center = new Point((cp.Brush as RadialGradientBrush).Center.X, (double)args.NewValue);
-                cp._BrushSetInternally = false;
-            }
-        }
-
-        double RadiusX
-        {
-            get { return (double)GetValue(RadiusXProperty); }
-            set { SetValue(RadiusXProperty, value); }
-        }
-        static readonly DependencyProperty RadiusXProperty =
-            DependencyProperty.Register("RadiusX", typeof(double), typeof(GradientPickerControl), new PropertyMetadata(0.5, new PropertyChangedCallback(RadiusXChanged)));
-        static void RadiusXChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is RadialGradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as RadialGradientBrush).RadiusX = (double)args.NewValue;
-                cp._BrushSetInternally = false;
-            }
-        }
-
-        double RadiusY
-        {
-            get { return (double)GetValue(RadiusYProperty); }
-            set { SetValue(RadiusYProperty, value); }
-        }
-        static readonly DependencyProperty RadiusYProperty =
-            DependencyProperty.Register("RadiusY", typeof(double), typeof(GradientPickerControl), new PropertyMetadata(0.5, new PropertyChangedCallback(RadiusYChanged)));
-        static void RadiusYChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is RadialGradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as RadialGradientBrush).RadiusY = (double)args.NewValue;
-                cp._BrushSetInternally = false;
-            }
-        }
-
         double BrushOpacity
         {
             get { return (double)GetValue(BrushOpacityProperty); }
@@ -317,42 +212,6 @@ namespace GradientPicker.UI.UserControl
         //    cp.Brush.Opacity = (double)args.NewValue;
         //    cp._BrushSetInternally = false;            
         //}
-
-        GradientSpreadMethod SpreadMethod
-        {
-            get { return (GradientSpreadMethod)GetValue(SpreadMethodProperty); }
-            set { SetValue(SpreadMethodProperty, value); }
-        }
-        static readonly DependencyProperty SpreadMethodProperty =
-            DependencyProperty.Register("SpreadMethod", typeof(GradientSpreadMethod), typeof(GradientPickerControl), new PropertyMetadata(GradientSpreadMethod.Pad, new PropertyChangedCallback(SpreadMethodChanged)));
-        static void SpreadMethodChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is GradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as GradientBrush).SpreadMethod = (GradientSpreadMethod)args.NewValue;
-                cp._BrushSetInternally = false;
-            }
-        }
-
-        BrushMappingMode MappingMode
-        {
-            get { return (BrushMappingMode)GetValue(MappingModeProperty); }
-            set { SetValue(MappingModeProperty, value); }
-        }
-        static readonly DependencyProperty MappingModeProperty =
-            DependencyProperty.Register("MappingMode", typeof(BrushMappingMode), typeof(GradientPickerControl), new PropertyMetadata(BrushMappingMode.RelativeToBoundingBox, new PropertyChangedCallback(MappingModeChanged)));
-        static void MappingModeChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            GradientPickerControl cp = property as GradientPickerControl;
-            if (cp.Brush is GradientBrush)
-            {
-                cp._BrushSetInternally = true;
-                (cp.Brush as GradientBrush).MappingMode = (BrushMappingMode)args.NewValue;
-                cp._BrushSetInternally = false;
-            }
-        }
 
         #endregion
 
@@ -399,6 +258,26 @@ namespace GradientPicker.UI.UserControl
         //    }
         //}
 
+        //#region ColorChanged Event
+        //public delegate void ColorChangedEventHandler(object sender, ColorChangedEventArgs e);
+
+        //public static readonly RoutedEvent ColorChangedEvent =
+        //    EventManager.RegisterRoutedEvent("ColorChanged", RoutingStrategy.Bubble, typeof(ColorChangedEventHandler), typeof(ColorBox));
+
+        //public event ColorChangedEventHandler ColorChanged
+        //{
+        //    add { AddHandler(ColorChangedEvent, value); }
+        //    remove { RemoveHandler(ColorChangedEvent, value); }
+        //}
+
+        //void RaiseColorChangedEvent(Color color)
+        //{
+        //    ColorChangedEventArgs newEventArgs = new ColorChangedEventArgs(ColorBox.ColorChangedEvent, color);
+        //    RaiseEvent(newEventArgs);
+        //}
+
+        //#endregion
+
         public Color Color
         {
             get { return (Color)GetValue(ColorProperty); }
@@ -429,8 +308,8 @@ namespace GradientPicker.UI.UserControl
             }
             brush.StartPoint = new Point(this.StartX, this.StartY);
             brush.EndPoint = new Point(this.EndX, this.EndY);
-            brush.MappingMode = this.MappingMode;
-            brush.SpreadMethod = this.SpreadMethod;
+            //brush.MappingMode = this.MappingMode;
+            //brush.SpreadMethod = this.SpreadMethod;
             Brush = brush;
             this.Brush.Opacity = opacity;
             this._BrushSetInternally = false;

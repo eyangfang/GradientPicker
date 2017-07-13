@@ -1,0 +1,232 @@
+﻿<ResourceDictionary
+	x:Uid="ResourceDictionary_1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+	<!-- Resource dictionary entries should be defined here. -->
+    <SolidColorBrush x:Key="MainFontBrush" Color="#BCBCBC"/>
+    
+	<LinearGradientBrush x:Uid="LinearGradientBrush_1" x:Key="TextBoxBorder" EndPoint="0,20" StartPoint="0,0" MappingMode="Absolute">
+		<GradientStop x:Uid="GradientStop_1" Color="#ABADB3" Offset="0.05"/>
+		<GradientStop x:Uid="GradientStop_2" Color="#E2E3EA" Offset="0.07"/>
+		<GradientStop x:Uid="GradientStop_3" Color="#E3E9EF" Offset="1"/>
+	</LinearGradientBrush>
+	<Style x:Uid="Style_1" x:Key="PageTextBoxStyle" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+		<Setter x:Uid="Setter_1" Property="Foreground" Value="{StaticResource MainFontBrush}"/>
+		<Setter x:Uid="Setter_2" Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+		<Setter x:Uid="Setter_3" Property="BorderThickness" Value="1"/>
+		<Setter x:Uid="Setter_4" Property="Padding" Value="1"/>
+		<Setter x:Uid="Setter_5" Property="AllowDrop" Value="true"/>
+        <Setter x:Uid="Setter_6" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+		<Setter x:Uid="Setter_7" Property="Template">
+			<Setter.Value>
+				<ControlTemplate x:Uid="ControlTemplate_1" TargetType="{x:Type TextBox}">
+					<Microsoft_Windows_Themes:ListBoxChrome x:Uid="Bd" x:Name="Bd" SnapsToDevicePixels="true" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" RenderFocused="{TemplateBinding IsKeyboardFocusWithin}" RenderMouseOver="{TemplateBinding IsMouseOver}">
+						<ScrollViewer x:Uid="PART_ContentHost" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+					</Microsoft_Windows_Themes:ListBoxChrome>
+					<ControlTemplate.Triggers>
+						<Trigger x:Uid="Trigger_1" Property="IsEnabled" Value="false">
+							<Setter x:Uid="Setter_9" Property="Foreground" Value="{DynamicResource MainFontDisableBrush}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter x:Uid="Setter_10" Property="Background" Value="Black"/>
+		<Setter x:Uid="Setter_11" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+		<Setter x:Uid="Setter_12" Property="FontSize" Value="{DynamicResource PageBigFontSize}"/>
+		<Setter x:Uid="Setter_27" Property="Focusable" Value="False"/>
+		<Setter x:Uid="Setter_28" Property="IsReadOnly" Value="True"/>
+	</Style>
+    
+	<Style x:Key="StaticTextBoxStyle" x:Uid="Style_2" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+		<Setter x:Uid="Setter_13" Property="Foreground" Value="{DynamicResource MainFontBrush}"/>
+		<Setter x:Uid="Setter_16" Property="Padding" Value="1"/>
+		<Setter x:Uid="Setter_17" Property="AllowDrop" Value="true"/>
+        <Setter x:Uid="Setter_18" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+		<Setter x:Uid="Setter_19" Property="Template">
+			<Setter.Value>
+				<ControlTemplate x:Uid="ControlTemplate_2" TargetType="{x:Type TextBox}">
+						<ScrollViewer x:Uid="ScrollViewer_1" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+					<ControlTemplate.Triggers>
+						<Trigger x:Uid="Trigger_2" Property="IsEnabled" Value="false">
+							<Setter x:Uid="Setter_21" Property="Foreground" Value="{DynamicResource MainFontDisableBrush}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter x:Uid="Setter_23" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+		<Setter x:Uid="Setter_24" Property="FontSize" Value="{DynamicResource PageMediumFontSize}"/>
+		<Setter x:Uid="Setter_25" Property="Focusable" Value="False"/>
+		<Setter x:Uid="Setter_55" Property="TextWrapping" Value="Wrap"/>
+		<Setter x:Uid="Setter_56" Property="BorderBrush" Value="{x:Null}"/>
+		<Setter x:Uid="Setter_57" Property="BorderThickness" Value="0"/>
+		<Setter x:Uid="Setter_58" Property="Background" Value="{x:Null}"/>
+		<Setter x:Uid="Setter_59" Property="IsTabStop" Value="False"/>
+		<Setter x:Uid="Setter_60" Property="Cursor" Value="Arrow"/>
+	</Style>
+    <Style x:Key="StaticTextBigBoxStyle" x:Uid="Style_6" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+        <Setter x:Uid="Setter_75" Property="Foreground" Value="{DynamicResource MainFontBrush}"/>
+        <Setter x:Uid="Setter_76" Property="Padding" Value="1"/>
+        <Setter x:Uid="Setter_77" Property="AllowDrop" Value="true"/>
+        <Setter x:Uid="Setter_78" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+        <Setter x:Uid="Setter_79" Property="Template">
+            <Setter.Value>
+                <ControlTemplate x:Uid="ControlTemplate_6" TargetType="{x:Type TextBox}">
+                    <ScrollViewer x:Uid="ScrollViewer_5" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger x:Uid="Trigger_6" Property="IsEnabled" Value="false">
+                            <Setter x:Uid="Setter_80" Property="Foreground" Value="{DynamicResource MainFontDisableBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter x:Uid="Setter_81" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+        <Setter x:Uid="Setter_82" Property="FontSize" Value="{DynamicResource PageBigFontSize}"/>
+        <Setter x:Uid="Setter_83" Property="Focusable" Value="False"/>
+        <Setter x:Uid="Setter_84" Property="TextWrapping" Value="Wrap"/>
+        <Setter x:Uid="Setter_85" Property="BorderBrush" Value="{x:Null}"/>
+        <Setter x:Uid="Setter_86" Property="BorderThickness" Value="0"/>
+        <Setter x:Uid="Setter_87" Property="Background" Value="{x:Null}"/>
+        <Setter x:Uid="Setter_88" Property="IsTabStop" Value="False"/>
+        <Setter x:Uid="Setter_89" Property="Cursor" Value="Arrow"/>
+    </Style>
+    <Style x:Uid="Style_7" x:Key="FeatureDescTextBoxStyle" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+        <Setter x:Uid="Setter_90" Property="Foreground" Value="{DynamicResource FeatureDescTextBrush}"/>
+        <Setter x:Uid="Setter_91" Property="Padding" Value="1"/>
+        <Setter x:Uid="Setter_92" Property="AllowDrop" Value="true"/>
+        <Setter x:Uid="Setter_93" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+        <Setter x:Uid="Setter_94" Property="Template">
+            <Setter.Value>
+                <ControlTemplate x:Uid="ControlTemplate_7" TargetType="{x:Type TextBox}">
+                    <ScrollViewer x:Uid="ScrollViewer_6" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger x:Uid="Trigger_7" Property="IsEnabled" Value="false">
+                            <Setter x:Uid="Setter_95" Property="Foreground" Value="{DynamicResource MainFontDisableBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter x:Uid="Setter_96" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+        <Setter x:Uid="Setter_97" Property="FontSize" Value="{DynamicResource PageMediumFontSize}"/>
+        <Setter x:Uid="Setter_98" Property="Focusable" Value="False"/>
+        <Setter x:Uid="Setter_99" Property="TextWrapping" Value="Wrap"/>
+        <Setter x:Uid="Setter_100" Property="BorderBrush" Value="{x:Null}"/>
+        <Setter x:Uid="Setter_101" Property="BorderThickness" Value="0"/>
+        <Setter x:Uid="Setter_102" Property="Background" Value="{x:Null}"/>
+        <Setter x:Uid="Setter_103" Property="IsTabStop" Value="False"/>
+        <Setter x:Uid="Setter_104" Property="Cursor" Value="Arrow"/>
+    </Style>
+    <Style x:Key="EditableTextBoxStyle" x:Uid="Style_3" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+		<Setter x:Uid="Setter_29" Property="Foreground" Value="{StaticResource MainFontBrush}"/>
+		<Setter x:Uid="Setter_30" Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+		<Setter x:Uid="Setter_31" Property="BorderThickness" Value="1"/>
+		<Setter x:Uid="Setter_32" Property="Padding" Value="1"/>
+		<Setter x:Uid="Setter_33" Property="AllowDrop" Value="true"/>
+		<Setter x:Uid="Setter_34" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+		<Setter x:Uid="Setter_35" Property="Template">
+			<Setter.Value>
+				<ControlTemplate x:Uid="ControlTemplate_3" TargetType="{x:Type TextBox}">
+					<Microsoft_Windows_Themes:ListBoxChrome x:Uid="Microsoft_Windows_Themes:ListBoxChrome_1" x:Name="Bd" SnapsToDevicePixels="true" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" RenderFocused="{TemplateBinding IsKeyboardFocusWithin}" RenderMouseOver="{TemplateBinding IsMouseOver}">
+						<ScrollViewer x:Uid="ScrollViewer_2" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+					</Microsoft_Windows_Themes:ListBoxChrome>
+					<ControlTemplate.Triggers>
+						<Trigger x:Uid="Trigger_3" Property="IsEnabled" Value="false">
+							<Setter x:Uid="Setter_36" Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+							<Setter x:Uid="Setter_37" Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter x:Uid="Setter_38" Property="Background" Value="Black"/>
+		<Setter x:Uid="Setter_39" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+		<Setter x:Uid="Setter_40" Property="FontSize" Value="{DynamicResource PageBigFontSize}"/>
+	</Style>
+    
+	<Style x:Key="InfoTitleTextBoxStyle" x:Uid="Style_4" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+		<Setter x:Uid="Setter_41" Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+		<Setter x:Uid="Setter_42" Property="BorderThickness" Value="1"/>
+		<Setter x:Uid="Setter_43" Property="Padding" Value="1"/>
+		<Setter x:Uid="Setter_44" Property="AllowDrop" Value="true"/>
+		<Setter x:Uid="Setter_45" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+		<Setter x:Uid="Setter_46" Property="Template">
+			<Setter.Value>
+				<ControlTemplate x:Uid="ControlTemplate_4" TargetType="{x:Type TextBox}">
+					<ScrollViewer x:Uid="ScrollViewer_3" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+					<ControlTemplate.Triggers>
+						<Trigger x:Uid="Trigger_4" Property="IsEnabled" Value="false">
+							<Setter x:Uid="Setter_47" Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter x:Uid="Setter_48" Property="Background" Value="Transparent"/>
+		<Setter x:Uid="Setter_49" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+		<Setter x:Uid="Setter_50" Property="FontSize" Value="{DynamicResource PageMediumFontSize}"/>
+		<Setter x:Uid="Setter_51" Property="Focusable" Value="False"/>
+		<Setter x:Uid="Setter_52" Property="IsTabStop" Value="False"/>
+		<Setter x:Uid="Setter_53" Property="TextWrapping" Value="Wrap"/>
+		<Setter x:Uid="Setter_54" Property="HorizontalContentAlignment" Value="Center"/>
+	</Style>
+
+	<Style x:Key="MenuPageTextBoxStyle" x:Uid="Style_5" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+		<Setter x:Uid="Setter_61" Property="Foreground" Value="{DynamicResource MainFontBrush}"/>
+		<Setter x:Uid="Setter_62" Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+		<Setter x:Uid="Setter_63" Property="BorderThickness" Value="1"/>
+		<Setter x:Uid="Setter_64" Property="Padding" Value="5"/>
+		<Setter x:Uid="Setter_65" Property="AllowDrop" Value="true"/>
+		<Setter x:Uid="Setter_66" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+		<Setter x:Uid="Setter_67" Property="Template">
+			<Setter.Value>
+				<ControlTemplate x:Uid="ControlTemplate_5" TargetType="{x:Type TextBox}">
+					<Microsoft_Windows_Themes:ListBoxChrome x:Uid="Microsoft_Windows_Themes:ListBoxChrome_2" x:Name="Bd" SnapsToDevicePixels="true" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" RenderFocused="{TemplateBinding IsKeyboardFocusWithin}" RenderMouseOver="{TemplateBinding IsMouseOver}">
+						<ScrollViewer x:Uid="ScrollViewer_4" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+					</Microsoft_Windows_Themes:ListBoxChrome>
+					<ControlTemplate.Triggers>
+						<Trigger x:Uid="Trigger_5" Property="IsEnabled" Value="false">
+							<Setter x:Uid="Setter_68" Property="Foreground" Value="{DynamicResource MainFontDisableBrush}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter x:Uid="Setter_69" Property="Background" Value="Black"/>
+		<Setter x:Uid="Setter_70" Property="FontWeight" Value="{DynamicResource PageFontWeight}"/>
+		<Setter x:Uid="Setter_71" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+		<Setter x:Uid="Setter_72" Property="FontSize" Value="{DynamicResource PageBigFontSize}"/>
+		<Setter x:Uid="Setter_73" Property="Focusable" Value="False"/>
+		<Setter x:Uid="Setter_74" Property="IsReadOnly" Value="True"/>
+	</Style>
+
+    <Style x:Key="EditableTextBoxStyle2" x:Uid="Style_8" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+        <Setter x:Uid="Setter_105" Property="Background" Value="{DynamicResource NormalBrush}"/>
+        <Setter x:Uid="Setter_106" Property="Foreground" Value="{DynamicResource MainFontBrush}"/>
+        <Setter x:Uid="Setter_107" Property="BorderThickness" Value="0"/>
+        <Setter x:Uid="Setter_108" Property="Padding" Value="1"/>
+        <Setter x:Uid="Setter_109" Property="AllowDrop" Value="true"/>
+        <Setter x:Uid="Setter_110" Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisual}"/>
+        <Setter x:Uid="Setter_111" Property="Template">
+            <Setter.Value>
+                <ControlTemplate x:Uid="ControlTemplate_8" TargetType="{x:Type TextBox}">
+                    <Microsoft_Windows_Themes:ListBoxChrome x:Uid="Microsoft_Windows_Themes:ListBoxChrome_3" x:Name="Bd" SnapsToDevicePixels="true" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" RenderFocused="{TemplateBinding IsKeyboardFocusWithin}" RenderMouseOver="{TemplateBinding IsMouseOver}">
+                        <ScrollViewer x:Uid="ScrollViewer_7" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Microsoft_Windows_Themes:ListBoxChrome>
+                    <ControlTemplate.Triggers>
+                        <Trigger x:Uid="Trigger_8" Property="IsEnabled" Value="false">
+                            <Setter x:Uid="Setter_112" Property="Background" TargetName="Bd" Value="{DynamicResource TextButtonBkgndBrush}"/>
+                            <Setter x:Uid="Setter_113" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter x:Uid="Setter_114" Property="Background" Value="Black"/>
+        <Setter x:Uid="Setter_115" Property="FontFamily" Value="{DynamicResource PageFontFamily}"/>
+        <Setter x:Uid="Setter_116" Property="FontSize" Value="{DynamicResource PageBigFontSize}"/>
+    </Style>
+
+</ResourceDictionary>
