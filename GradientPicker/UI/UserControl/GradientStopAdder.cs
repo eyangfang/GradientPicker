@@ -20,6 +20,7 @@ namespace GradientPicker.UI.UserControl
                 _gs.Color = this.gradientPicker.Color;
                 //_gs.Color = GetColorFromImage(e.GetPosition(this));
                 this.gradientPicker.Gradients.Add(_gs);
+                this.gradientPicker.Gradients.Move(this.gradientPicker.Gradients.Count - 1, this.gradientPicker.Gradients.Count - 2);
                 this.gradientPicker.SelectedGradient = _gs;
                 this.gradientPicker.Color = _gs.Color;
                 this.gradientPicker.SetBrush();

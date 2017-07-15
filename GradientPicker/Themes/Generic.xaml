@@ -213,30 +213,24 @@
                         <ContentPresenter/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
+                        <!--<Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="IconBorder" Property="BorderBrush" Value="Red" />
-                        </Trigger>
+                        </Trigger>-->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true" />
+                                <Condition Property="Selector.IsSelectionActive" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="IconBorder" Property="BorderBrush" Value="Red" />
+                        </MultiTrigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <!--<DataTemplate x:Key="ColorItemTemplate">
-        <Grid>
-            <Border Background="{StaticResource CheckerBrush}" BorderBrush="Black" BorderThickness="1" Margin="2,2,2,2" >
-                <Rectangle Width="14" Height="14">
-                    <Rectangle.Style>
-                        <Style TargetType="Rectangle">
-                            <Setter Property="Fill" Value="{Binding Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Swatches}},  Converter={StaticResource ColorToSolidColorBrushConverter}}" />
-                        </Style>
-                    </Rectangle.Style>
-                </Rectangle>
-            </Border>
-        </Grid>
-    </DataTemplate>-->
 
-   
+
     <Style TargetType="{x:Type local:Swatches}">
         <Setter Property="Template">
             <Setter.Value>
@@ -254,11 +248,12 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20">SWATCHES</TextBlock>
-                                <ListBox x:Name="ColorList"  Grid.Row="1" 
+                                <ListBox x:Name="Part_ColorList"  Grid.Row="1" 
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                                          ItemsSource="{Binding ls, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Swatches}}}"
-                                         SelectedItem="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
-                                         ItemContainerStyle="{StaticResource ColorItemContainerStyle}">
+                                         SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
+                                         ItemContainerStyle="{StaticResource ColorItemContainerStyle}"
+                                         SelectionMode="Single">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Rows="2" />

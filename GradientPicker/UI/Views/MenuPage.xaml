@@ -14,7 +14,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <i:GradientPickerControl Grid.Row="0" Color="{Binding Path=DataContext.CurrentColor, RelativeSource={RelativeSource AncestorType=Page, Mode=FindAncestor}, Mode=TwoWay}"></i:GradientPickerControl>
-        <i:Swatches Grid.Row="1" SelectedColor="{Binding Path=DataContext.CurrentColor, RelativeSource={RelativeSource AncestorType=Page, Mode=FindAncestor}, Mode=TwoWay}"></i:Swatches>
+        <i:GradientPickerControl Grid.Row="0" Color="{Binding Path=DataContext.CurrentColor_Stops, RelativeSource={RelativeSource AncestorType=Page, Mode=FindAncestor},Mode=TwoWay}"></i:GradientPickerControl>
+        <i:Swatches Grid.Row="1" SelectedColor="{Binding Path=DataContext.CurrentColor_Swatches, RelativeSource={RelativeSource AncestorType=Page, Mode=FindAncestor},Mode=TwoWay}"></i:Swatches>
     </Grid>
 </Page>

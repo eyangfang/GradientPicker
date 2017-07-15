@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +10,7 @@ namespace GradientPicker.UI.UserControl
     {
         internal bool _BrushSetInternally = false;
         internal bool _UpdateBrush = true;
+        internal bool _RGBSetInternally = false;
 
         static GradientPickerControl()
         {
@@ -23,6 +22,7 @@ namespace GradientPicker.UI.UserControl
         public static RoutedCommand RearrangeGradientStop = new RoutedCommand();
         public static RoutedCommand AddGradientStop = new RoutedCommand();
         public static RoutedCommand OpenDialog = new RoutedCommand();
+        //public static RoutedCommand RButtonDown = new RoutedCommand();
 
         public void InitialBrush()
         {
@@ -45,6 +45,7 @@ namespace GradientPicker.UI.UserControl
             this.CommandBindings.Add(new CommandBinding(GradientPickerControl.RearrangeGradientStop, RearrangeGradientStop_Executed));
             this.CommandBindings.Add(new CommandBinding(GradientPickerControl.AddGradientStop, AddGradientStop_Executed));
             this.CommandBindings.Add(new CommandBinding(GradientPickerControl.OpenDialog, Show_colorpicker));
+            //this.CommandBindings.Add(new CommandBinding(GradientPickerControl.RButtonDown, OnPreviewMouseRightButtonDown));
 
             ActivitiesItemList = GetTemplateChild("PART_StopsList") as ListBox;
             if (ActivitiesItemList != null)
@@ -54,6 +55,10 @@ namespace GradientPicker.UI.UserControl
                  new RoutedEventHandler(Show_colorpicker));
              }
         }
+        //public void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    Point pt = Mouse.GetPosition(ActivitiesItemList);
+        //}
 
         private void RemoveGradientStop_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -72,6 +77,7 @@ namespace GradientPicker.UI.UserControl
             _gs.Offset = Mouse.GetPosition(cl).X/cl.ActualWidth;
             _gs.Color = this.Color;
             this.Gradients.Add(_gs);
+            this.Gradients.Move(Gradients.Count - 1, Gradients.Count - 2);
             this.SelectedGradient = _gs;
             this.Color = _gs.Color;
             this.SetBrush();
@@ -262,7 +268,7 @@ namespace GradientPicker.UI.UserControl
         //public delegate void ColorChangedEventHandler(object sender, ColorChangedEventArgs e);
 
         //public static readonly RoutedEvent ColorChangedEvent =
-        //    EventManager.RegisterRoutedEvent("ColorChanged", RoutingStrategy.Bubble, typeof(ColorChangedEventHandler), typeof(ColorBox));
+        //    EventManager.RegisterRoutedEvent("ColorChanged", RoutingStrategy.Bubble, typeof(ColorChangedEventHandler), typeof(GradientPickerControl));
 
         //public event ColorChangedEventHandler ColorChanged
         //{
@@ -272,18 +278,33 @@ namespace GradientPicker.UI.UserControl
 
         //void RaiseColorChangedEvent(Color color)
         //{
-        //    ColorChangedEventArgs newEventArgs = new ColorChangedEventArgs(ColorBox.ColorChangedEvent, color);
+        //    ColorChangedEventArgs newEventArgs = new ColorChangedEventArgs(GradientPickerControl.ColorChangedEvent, color);
         //    RaiseEvent(newEventArgs);
         //}
 
         //#endregion
+
 
         public Color Color
         {
             get { return (Color)GetValue(ColorProperty); }
             set { SetValue(ColorProperty, value); }
         }
-        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register("Color", typeof(Color), typeof(GradientPickerControl));
+        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register("Color", typeof(Color), typeof(GradientPickerControl), new PropertyMetadata(Colors.Black, OnColorChanged));
+
+        public static void OnColorChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            GradientPickerControl c = (GradientPickerControl)o;
+            if (e.NewValue is Color)
+            {
+                c.Color = (Color)e.NewValue;
+                if (c.SelectedGradient != null)
+                {
+                    c.SelectedGradient.Color = c.Color;
+                    c.SetBrush();
+                }
+            }
+        }
 
         internal void SetBrush()
         {
