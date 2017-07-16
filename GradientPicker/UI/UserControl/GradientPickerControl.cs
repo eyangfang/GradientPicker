@@ -55,10 +55,6 @@ namespace GradientPicker.UI.UserControl
                  new RoutedEventHandler(Show_colorpicker));
              }
         }
-        //public void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    Point pt = Mouse.GetPosition(ActivitiesItemList);
-        //}
 
         private void RemoveGradientStop_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -95,10 +91,6 @@ namespace GradientPicker.UI.UserControl
             }
             Gradients[nGradients - 1].Offset = 1;
 
-            //foreach (GradientStop gs in Gradients)
-            //{
-            //    gs.Offset = 1.0 - gs.Offset;
-            //}
             this._UpdateBrush = true;
             this._BrushSetInternally = false;
             this.SetBrush();
@@ -122,7 +114,6 @@ namespace GradientPicker.UI.UserControl
                 R = cPicker.SelectedColorR;
                 G = cPicker.SelectedColorG;
                 B = cPicker.SelectedColorB;
-                //rtlfill.Fill = new SolidColorBrush(cPicker.SelectedColor);
                 this.Color = (Color)ColorConverter.ConvertFromString(cPicker.SelectedColor.ToString());
                 this.SelectedGradient.Color = this.Color;
                 this.SetBrush();
@@ -247,43 +238,6 @@ namespace GradientPicker.UI.UserControl
         public static readonly DependencyProperty BrushProperty =
             DependencyProperty.Register("Brush", typeof(Brush), typeof(GradientPickerControl));
 
-        //static void BrushChanged(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        //{
-        //    GradientPickerControl c = property as GradientPickerControl;
-        //    Brush brush = args.NewValue as Brush;
-        //    if (!c._BrushSetInternally)
-        //    {
-        //        LinearGradientBrush lgb = brush as LinearGradientBrush;
-        //        c.StartX = lgb.StartPoint.X;
-        //        c.StartY = lgb.StartPoint.Y;
-        //        c.EndX = lgb.EndPoint.X;
-        //        c.EndY = lgb.EndPoint.Y;
-        //        c.MappingMode = lgb.MappingMode;
-        //        c.SpreadMethod = lgb.SpreadMethod;
-        //        c.Gradients = new ObservableCollection<GradientStop>(lgb.GradientStops);
-        //    }
-        //}
-
-        //#region ColorChanged Event
-        //public delegate void ColorChangedEventHandler(object sender, ColorChangedEventArgs e);
-
-        //public static readonly RoutedEvent ColorChangedEvent =
-        //    EventManager.RegisterRoutedEvent("ColorChanged", RoutingStrategy.Bubble, typeof(ColorChangedEventHandler), typeof(GradientPickerControl));
-
-        //public event ColorChangedEventHandler ColorChanged
-        //{
-        //    add { AddHandler(ColorChangedEvent, value); }
-        //    remove { RemoveHandler(ColorChangedEvent, value); }
-        //}
-
-        //void RaiseColorChangedEvent(Color color)
-        //{
-        //    ColorChangedEventArgs newEventArgs = new ColorChangedEventArgs(GradientPickerControl.ColorChangedEvent, color);
-        //    RaiseEvent(newEventArgs);
-        //}
-
-        //#endregion
-
 
         public Color Color
         {
@@ -329,8 +283,6 @@ namespace GradientPicker.UI.UserControl
             }
             brush.StartPoint = new Point(this.StartX, this.StartY);
             brush.EndPoint = new Point(this.EndX, this.EndY);
-            //brush.MappingMode = this.MappingMode;
-            //brush.SpreadMethod = this.SpreadMethod;
             Brush = brush;
             this.Brush.Opacity = opacity;
             this._BrushSetInternally = false;

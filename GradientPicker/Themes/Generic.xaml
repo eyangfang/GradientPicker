@@ -50,7 +50,7 @@
     </Style>
 
 
-
+    <!-- GradientPickerControl -->
     <Style TargetType="{x:Type local:GradientPickerControl}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderThickness" Value="1" />
@@ -85,7 +85,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="0" FontSize="20" HorizontalAlignment="Center">COLORS</TextBlock>
-                                    <Button x:Name="RearrangeIcon" Grid.Column="1" Command="{x:Static local:GradientPickerControl.RearrangeGradientStop}">
+                                    <Button x:Name="RearrangeIcon" Grid.Column="1" Command="{x:Static local:GradientPickerControl.RearrangeGradientStop}" Width="30" Height="30">
                                         <Image Source="Resources/Image/distribute.png" Stretch="Uniform" Width="Auto" Height="Auto"/>
                                     </Button>
                                            
@@ -205,15 +205,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border Background="LightGray"
-                            CornerRadius="8"
+                    <Border 
                             BorderThickness="3"
-                            x:Name="IconBorder"
-                            Margin="8,4,8,4" >
+                            x:Name="IconBorder">
                         <ContentPresenter/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="IsSelected" Value="True">
+                        <!--<Trigger Property="IsSelected" Value="True">Margin="8,4,8,4" 
                             <Setter TargetName="IconBorder" Property="BorderBrush" Value="Red" />
                         </Trigger>-->
                         <MultiTrigger>
@@ -221,7 +219,7 @@
                                 <Condition Property="IsSelected" Value="true" />
                                 <Condition Property="Selector.IsSelectionActive" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="IconBorder" Property="BorderBrush" Value="Red" />
+                            <Setter TargetName="IconBorder" Property="BorderBrush" Value="Black" />
                         </MultiTrigger>
                         
                     </ControlTemplate.Triggers>
@@ -241,19 +239,21 @@
                             Cursor="/GradientPicker;component/Resources/Image/eyedropper.cur">
 
                         <StackPanel>
-                            <Grid>
+                            <Grid Height="100">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height=" 1*"/>
-                                    <RowDefinition Height="4*"/>
+                                    <RowDefinition Height="8*"/>
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20">SWATCHES</TextBlock>
                                 <ListBox x:Name="Part_ColorList"  Grid.Row="1" 
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                         ItemsSource="{Binding ls, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Swatches}}}"
+                                         ItemsSource="{Binding listColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Swatches}}}"
                                          SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
                                          ItemContainerStyle="{StaticResource ColorItemContainerStyle}"
-                                         SelectionMode="Single">
+                                         SelectionMode="Single"
+                                         HorizontalContentAlignment="Stretch"
+                                         VerticalContentAlignment="Stretch">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Rows="2" />
@@ -262,8 +262,8 @@
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <Border Background="{DynamicResource CheckerBrush}" BorderBrush="Black" BorderThickness="1" Margin="2,2,2,2" >
-                                                    <Rectangle Width="14" Height="14">
+                                                <Border Background="{DynamicResource CheckerBrush}" BorderBrush="Black" BorderThickness="1">
+                                                    <Rectangle>
                                                         <Rectangle.Style>
                                                             <Style TargetType="Rectangle">
                                                                 <Setter Property="Fill" Value="{Binding Converter={StaticResource ColorToSolidColorBrushConverter}}" />

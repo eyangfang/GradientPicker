@@ -32,7 +32,6 @@ namespace GradientPicker.UI.UserControl
             {
                 this.gradientPicker._BrushSetInternally = true;
                 this.gradientPicker.SetBrush();
-            //    this.gradientPicker._HSBSetInternally = false;
             }
         }
 

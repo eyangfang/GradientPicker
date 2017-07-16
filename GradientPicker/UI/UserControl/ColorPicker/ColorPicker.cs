@@ -59,7 +59,6 @@ namespace GradientPicker.UI.UserControl
 
         }
 
-        //zxx-->
         private string _txtSlectedColor = "Selected Color";
         public string txtSlectedColor
         {
@@ -222,7 +221,6 @@ namespace GradientPicker.UI.UserControl
                 _txtColorB = value;
             }
         }
-        //<--
 
         #endregion
 

@@ -12,13 +12,6 @@ namespace GradientPicker.UI.UserControl
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Swatches), new FrameworkPropertyMetadata(typeof(Swatches)));
         }
 
-        ObservableCollection<SolidColorBrush> _lsBrush;
-        public ObservableCollection<SolidColorBrush> lsBrush
-        {
-            get { return _lsBrush; }
-            set { _lsBrush = value; }
-        }
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -29,38 +22,29 @@ namespace GradientPicker.UI.UserControl
 
         void InitialColor()
         {
-            lsBrush = new ObservableCollection<SolidColorBrush>();
-            ls = new ObservableCollection<Color>();
-            ls.Add(Color.FromArgb(255, 255, 0, 0));
-            ls.Add(Color.FromArgb(255, 255, 127, 0));
-            ls.Add(Color.FromArgb(255, 255, 255, 0));
-            ls.Add(Color.FromArgb(255, 0, 255, 0));
-            ls.Add(Color.FromArgb(255, 0, 0, 255));
-            ls.Add(Color.FromArgb(255, 75, 0, 130));
-            ls.Add(Color.FromArgb(255, 139, 0, 255));
-            ls.Add(Color.FromArgb(0, 0, 0, 0));
-            ls.Add(Color.FromArgb(0, 0, 0, 0));
-            ls.Add(Color.FromArgb(0, 0, 0, 0));
-            ls.Add(Color.FromArgb(0, 0, 0, 0));
-            ls.Add(Color.FromArgb(0, 0, 0, 0));
-            ls.Add(Color.FromArgb(0, 0, 0, 0));
-            ls.Add(Color.FromArgb(0, 0, 0, 0));
-
-
-            for (int i = 0; i < ls.Count; i++)
-            {
-                SolidColorBrush b = new SolidColorBrush();
-                b.Color = ls[i];
-                lsBrush.Add(b);
-            }
+            listColor = new ObservableCollection<Color>();
+            listColor.Add(Color.FromArgb(255, 255, 0, 0));
+            listColor.Add(Color.FromArgb(255, 255, 127, 0));
+            listColor.Add(Color.FromArgb(255, 255, 255, 0));
+            listColor.Add(Color.FromArgb(255, 0, 255, 0));
+            listColor.Add(Color.FromArgb(255, 0, 0, 255));
+            listColor.Add(Color.FromArgb(255, 75, 0, 130));
+            listColor.Add(Color.FromArgb(255, 139, 0, 255));
+            listColor.Add(Color.FromArgb(0, 0, 0, 0));
+            listColor.Add(Color.FromArgb(0, 0, 0, 0));
+            listColor.Add(Color.FromArgb(0, 0, 0, 0));
+            listColor.Add(Color.FromArgb(0, 0, 0, 0));
+            listColor.Add(Color.FromArgb(0, 0, 0, 0));
+            listColor.Add(Color.FromArgb(0, 0, 0, 0));
+            listColor.Add(Color.FromArgb(0, 0, 0, 0));
         }
         
-        public ObservableCollection<Color> ls
+        public ObservableCollection<Color> listColor
         {
             get { return (ObservableCollection<Color>)GetValue(lsProperty); }
             set { SetValue(lsProperty,value); }
         }
-        public static readonly DependencyProperty lsProperty = DependencyProperty.Register("ls", typeof(ObservableCollection<Color>), typeof(Swatches));
+        public static readonly DependencyProperty lsProperty = DependencyProperty.Register("listColor", typeof(ObservableCollection<Color>), typeof(Swatches));
 
         public Color SelectedColor
         {
@@ -87,7 +71,7 @@ namespace GradientPicker.UI.UserControl
             if (e.NewValue is Color)
             {
                 c.SelectedColor = (Color)e.NewValue;
-                if (c.ls!=null &&!c.ls[0].Equals(c.SelectedColor))
+                if (c.listColor != null &&!c.listColor[0].Equals(c.SelectedColor))
                 {
                     c.m_SelectedColor = c.SelectedColor;
                     c.updateColorList();
@@ -98,16 +82,11 @@ namespace GradientPicker.UI.UserControl
         internal void updateColorList()
         {
             Color newColor = m_SelectedColor;
-            if (!ls.Contains(newColor))
+            if (!listColor.Contains(newColor))
             {
-                ls.RemoveAt(ls.Count - 1);
-                ls.Insert(0, newColor);
+                listColor.RemoveAt(listColor.Count - 1);
+                listColor.Insert(0, newColor);
             }
-            //else
-            //{
-            //    int idx = ls.IndexOf(newColor);
-            //    ls.Move(idx,0);
-            //}
         }
 
         private ListBox m_ColorList;
